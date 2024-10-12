@@ -1,57 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Linking, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import React from "react";
+import { StatusBar, View, Text, Image} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "./screens/Home.js"
 
-export default function App() {
+const Stack = createStackNavigator()
 
-  const pressLink = () => {
-    Linking.openURL('https://youtu.be/S-SnfN8Gn3I?si=D4h3wm01K5Uxz9RK');
-  };
+export default function App(){
+  return(
+    <>
+      <StatusBar barStyle={'light-content'} backgroundColor={'#000'}/>
 
-
-  return (
-    <View style={styles.container}>
-      
-      <Text style={styles.textTitle} numberOfLines={2}>Hello, everybody, my name is Welcome </Text>
-      <Text style={styles.textHeader}>What??</Text> 
-      <TouchableHighlight>
-        <Image 
-            source={require('./assets/biteof87.gif')}
-            style={{width: 300, height: 300}}
-        />
-      </TouchableHighlight>
-      
-      <Text style={styles.textColor} numberOfLines={3} onPress={pressLink}>was that the bite of 87?</Text>
-
-      <TouchableOpacity>
-        <Image
-          source={require('./assets/drawingMark.jpeg')}
-          style={{width:200, height: 200}}
-        />
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
-  );
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen
+            name="Home"
+            component = {Home}
+            options={{
+              headerLeft:()=>(
+                <View style={{flexDirection: 'row', alignItems:'center'}}>
+                  <Image 
+                    source={{uri: 'https://static.wikia.nocookie.net/azumanga-daioh-real-facts/images/5/5d/Oh_saka.jpg/revision/latest?cb=20240811214642'}}
+                    style={{width:40,height:40,marginRight:10}}
+                  />
+                  <Text style={{color: 'white', fontSize: 12}}>Osaka App</Text>
+                </View>
+              ),
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: "#000000c0"
+              },
+              headerTitleStyle:{
+                color: 'white'
+              } 
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
+  )
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  textColor:{
-    color: 'white'
-  },
-  textHeader:{
-    fontSize: 30,
-    color: 'red'
-  },
-  textTitle:{
-    fontSize: 40,
-    color: 'white',
-    textAlign: 'center',
-  }
-
-
-});
